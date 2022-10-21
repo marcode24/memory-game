@@ -11,25 +11,29 @@
 </head>
 
 <body>
-  <div class="container" id="play">
-    <header>
-      <span id="difficulty"> Difficulty: Easy </span>
-      <a class="btn btn-primary center" id="timer">Remaining Time: 00:39 </a>
-      <a class="btn btn-secondary" href="index.html"> Back to Home </a>
+  <div class="container">
+    <header class="header">
+      <span class="difficulty"> Difficulty: </span>
+      <div class="options">
+        <a class="btn btn-primary timer">Remaining Time: 00:39 </a>
+        <a class="btn btn-secondary" href="index.html"> Back to Home </a>
+      </div>
     </header>
-    <div class="cards-container" id="cards-container">
+    <div class="cards-container">
+      <div class="cards">
+      </div>
     </div>
     <div class="statistics">
-      <a class="btn btn-primary" id="remaining"> </a>
-      <a class="btn btn-primary" id="movements"> </a>
+      <a class="btn btn-primary remaining"> </a>
+      <a class="btn btn-primary movements"> </a>
     </div>
   </div>
 
-  <div id="result" class="modal">
+  <div class="modal">
     <div class="modal-content">
       <span class="title-modal"></span>
       <div class="buttons">
-        <a id="try-again" class="btn btn-primary btn-small" onclick="resetGame()">Try again</a>
+        <a class="btn btn-primary btn-small try-again" onclick="resetGame()">Try again</a>
         <a class="btn btn-secondary btn-small" href="index.html"> Back to Home </a>
       </div>
     </div>

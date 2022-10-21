@@ -1,4 +1,4 @@
-let cards = [
+let cardsImage = [
   { id: 1, image: "./images/1.jpg" },
   { id: 2, image: "./images/2.jpg" },
   { id: 3, image: "./images/3.jpg" },
@@ -21,22 +21,22 @@ const urlParams = new URLSearchParams(queryString);
 const difficultyParam = urlParams.get("d");
 
 // 1 - easy, 2 - medium, 3 - hard
-const container = document.getElementById("cards-container");
+const cards = document.querySelector(".cards");
 let difficulty = getDifficulty(difficultyParam);
 
 function getDifficulty(difficulty) {
   if (difficulty === "medium") {
-    container.classList.add("medium");
+    cards.classList.add("medium");
     return 2;
   }
   if (difficulty === "hard") {
-    container.classList.add("hard");
+    cards.classList.add("hard");
     return 3;
   }
   return 1;
 }
 
-cards.length = difficulty === 1 ? 10 : difficulty === 2 ? 12 : 15;
+cardsImage.length = difficulty === 1 ? 8 : difficulty === 2 ? 12 : 15;
 
 // mix cards
 function shuffle(array) {
@@ -53,13 +53,13 @@ function shuffle(array) {
   return array;
 }
 
-let newCards = [...cards, ...JSON.parse(JSON.stringify(cards))];
+let newCards = [...cardsImage, ...JSON.parse(JSON.stringify(cardsImage))];
 newCards.forEach((card, index) => (card.idUnique = index + 1));
 newCards = shuffle(newCards);
 
-const difficultyText = document.getElementById("difficulty");
+const difficultyText = document.querySelector(".difficulty");
 difficultyText.innerHTML = `Difficulty: ${
-  difficulty === 1 ? "easy" : difficulty === 2 ? "medium" : "hard"
+  difficulty === 1 ? "Easy" : difficulty === 2 ? "Medium" : "Hard"
 }`;
 
 let template = "";
@@ -78,10 +78,10 @@ newCards.forEach((card) => {
     </div>
   </div>`;
 });
-container.innerHTML = template;
+cards.innerHTML = template;
 
-const timer = document.getElementById("timer");
-const modal = document.getElementById("result");
+const timer = document.querySelector(".timer");
+const modal = document.querySelector(".modal");
 const titleModal = document.querySelector(".title-modal");
 
 let hundredth = 0;
@@ -110,11 +110,11 @@ const timerTemp = setInterval(run, 10);
 
 let countMovements = 0;
 let right = 0;
-let statusWon = cards.length;
+let statusWon = cardsImage.length;
 
-let movements = document.getElementById("movements");
+let movements = document.querySelector(".movements");
+let remaining = document.querySelector(".remaining");
 movements.textContent = `Movements: ${countMovements}`;
-let remaining = document.getElementById("remaining");
 remaining.textContent = `Remaining: ${statusWon - right}`;
 
 let cardOneSelected, cardOneSelectedID, cardOneSelectedIndex;
@@ -166,9 +166,10 @@ cardBox.forEach((card) => {
             );
             resetCards();
             right++;
+            console.log({ statusWon, right });
             remaining.textContent = `Remaining: ${statusWon - right}`;
             if (right === statusWon) {
-              const tryAButton = document.getElementById("try-again");
+              const tryAButton = document.querySelector(".try-again");
               clearInterval(timerTemp);
               modal.classList.add("show");
               titleModal.innerHTML = "Nice, you won!";
@@ -196,6 +197,7 @@ function resetGame() {
     card.classList.remove("disabled");
     card.children[0].classList.remove("rotate-card");
   });
+  timer.classList.remove("danger");
   modal.classList.remove("show");
   seconds = 60;
   hundredth = 0;
